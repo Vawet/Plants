@@ -1,0 +1,33 @@
+@import './reset.less';
+
+// 基础样式
+:root {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --border-color: #e5e7eb;
+}
+
+// 黑夜模式覆盖
+.dark-theme {
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+    --border-color: #4b5563;
+}
+
+// 应用全局变量
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+// 其他组件样式（如侧边栏、标签页等）可根据需要补充
+.aside {
+    background-color: var(--bg-color);
+    border-right: 1px solid var(--border-color);
+}
+
+.header {
+    background-color: var(--bg-color);
+    border-bottom: 1px solid var(--border-color);
+}
