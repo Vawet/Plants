@@ -138,7 +138,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { ElMessage, ElLoading } from 'element-plus'
+// import { ElMessage, ElLoading } from 'element-plus'
 import {handlePlantUpload} from '@/services/plantsService.js'
 import { handlePersonUpload,handleAvatarChange } from '@/services/editService.js'
 import {
@@ -151,7 +151,8 @@ import {
   Refresh,
   Upload,
   Camera,
-  Close
+  Close,
+  Delete
 } from '@element-plus/icons-vue'
 
 // 表单数据
@@ -247,7 +248,8 @@ const submitForm =async () => {
   })
   try {
    //  await Promise.all([handlePlantUpload(form.value),handlePersonUpload(form.value)]);
-    await Promise.all([handleAvatarChange(form.value.avatar),handlePersonUpload(form.value)]);
+    // await Promise.all([handleAvatarChange(form.value.avatar),handlePersonUpload(form.value)]);
+    await handlePersonUpload(form.value);
   } catch (error) {
     ElMessage.error('提交数据时出错，请稍后再试');
     console.error(error);

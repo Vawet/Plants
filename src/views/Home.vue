@@ -168,7 +168,7 @@
                   </div>
                 </div>
                 <div class="plant-details">
-                  <div class="plant-name">{{ form.author || "植物名称" }}</div>
+                  <div class="plant-name">{{ form.name || "植物名称" }}</div>
                   <div class="plant-description">
                     {{ form.descriptionCn || "请添加植物中文介绍" }}
                   </div>
@@ -211,7 +211,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { ElMessage, ElLoading } from 'element-plus'
+// import { ElMessage, ElLoading } from 'element-plus'
 import {handlePlantUpload} from '@/services/plantsService.js'
 import { handlePersonUpload } from '@/services/editService.js'
 

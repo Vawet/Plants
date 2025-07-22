@@ -6,17 +6,6 @@ function initState() {
     return {
         // 是否折叠
         isCollapse: false,
-        // 面包屑
-        tags: [{
-            // 路径
-            path: '/home',
-            // 名称
-            name: 'home',
-            // 标签
-            label: '首页',
-            // 图标
-            icon: 'home'
-        }],
         // 当前菜单
         currentMenu: null,
         // 菜单列表
@@ -60,14 +49,14 @@ export const useAllDataStore = defineStore("allData", () => {
         state.value.menuList = val;
     }
     function addMenu(router, type) {
-        // if (type === 'refresh') {
-        //     if (JSON.parse(localStorage.getItem('store'))) {
-        //         state.value = JSON.parse(localStorage.getItem("store"));
-        //         state.value.routerList = []
-        //     } else {
-        //         return;
-        //     }
-        // }
+        if (type === 'refresh') {
+            if (JSON.parse(localStorage.getItem('store'))) {
+                state.value = JSON.parse(localStorage.getItem("store"));
+                state.value.routerList = []
+            } else {
+                return;
+            }
+        }
         const menu = state.value.menuList;
         const module = import.meta.glob('../views/**/*.vue')
         const routeArr = []

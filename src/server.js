@@ -3,15 +3,16 @@ import cors from 'cors';
 import authRoutes from './routes/auth.js';
 import editRoutes from './routes/edit.js';
 import plantsRoutes from './routes/plants.js';
+import seriesRoutes from './routes/series.js';
 // import bodyParser from 'body-parser';
 import path from 'path';
 import { fileURLToPath } from 'url';
 const filename=fileURLToPath(import.meta.url);
-const dirname=path.dirname(filename);
+const __dirname=path.dirname(filename);
 const app=express();
 // app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(bodyParser.json());
-const allowOrigins = ['http://localhost:8080'];
+const allowOrigins = ['http://localhost:8080','http://localhost:8081'];
 app.use(cors({
     origin: (origin, callback) => {
         // !origin 表示允许Postman等工具的跨域请求
@@ -30,7 +31,7 @@ app.use(cors({
 app.options('*', cors());
 // 在所有路由前添加
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
+  res.header('Access-Control-Allow-Origin', allowOrigins[0], allowOrigins[1]);
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   next();
@@ -43,9 +44,11 @@ app.use('/api/auth',authRoutes);
 //下面管理用户后台操作
 app.use('/api/edit',editRoutes);
 app.use('/api/plants',plantsRoutes);
-app.use('/avatars',express.static(path.join(dirname, 'public/avatars')));
-app.use('/plants',express.static(path.join(dirname, 'public/plants')));
-// console.log('实际路径:',path.join(dirname, 'public/avatars'));
+// 前后台合并端口
+app.use('/api/series',seriesRoutes);
+app.use('/avatars',express.static(path.join(__dirname, 'public/avatars')));
+app.use('/plants',express.static(path.join(__dirname, 'public/plants')));
+// console.log('实际路径:',path.join(__dirname, 'public/avatars'));
 const PORT=process.env.PORT ||3000;
 app.listen(PORT,()=>{
     console.log(`服务器运行在端口${PORT}`);

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ElMessage } from 'element-plus';
+// import { ElMessage } from 'element-plus';
 const API_URL = 'http://localhost:3000/api/plants';
 export const handlePlantUpload = async (form) => {
   try {

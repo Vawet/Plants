@@ -38,7 +38,7 @@
 import { ref, computed,nextTick } from 'vue'
 import { useAllDataStore } from '../stores'
 import { useRouter } from 'vue-router'
-import { ElMessage,ElUpload } from 'element-plus'
+// import { ElMessage,ElUpload } from 'element-plus'
 import { handleAvatarChange } from '@/services/editService.js'
 const store = useAllDataStore()
 const getImageUrl = computed(() => {

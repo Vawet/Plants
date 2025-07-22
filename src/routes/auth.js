@@ -36,7 +36,7 @@ router.post('/login', async (req, res) => {
     // 3.生成JWT Token中包含用户的id和用户的角色字段
     const token = jwt.sign({ id: user.id,role:user.role }, JWT_SECRET, { expiresIn: '7d' });
     // 4.返回Token给前端
-    res.json({ token,userinfo:{id:user.id,username:user.username,role:user.role} });
+    res.json({ token,userinfo:{id:user.id,username:user.username,role:user.role,avatar:user.avatarUrl} });
   } catch (error) {
     res.status(500).json({ error: '登录失败' });
   }

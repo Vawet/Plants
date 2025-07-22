@@ -40,7 +40,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { ElMessage } from 'element-plus';
+// import { ElMessage } from 'element-plus';
 // 假设我们有一个用户服务
 // import { getUserList } from '@/services/userService';
 
