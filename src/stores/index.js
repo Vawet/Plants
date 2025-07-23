@@ -8,20 +8,20 @@ function initState() {
         isCollapse: false,
         // 菜单列表
         menuList: [
-            {
-        path: '/home',
-        name: 'home',
-        label: '首页',
-        icon: 'house',
-        url: 'Home'
-    },
-    {
-        path: '/page2',
-        name: 'page2',
-        label: '个人信息编辑',
-        icon: 'setting',
-        url: 'Page2'
-    },
+        {
+            path: '/home',
+            name: 'home',
+            label: '首页',
+            icon: 'house',
+            url: 'Home'
+        },
+        {
+            path: '/page2',
+            name: 'page2',
+            label: '个人信息编辑',
+            icon: 'setting',
+            url: 'Page2'
+          },
         ],
         // 路由列表
         routerList: [],

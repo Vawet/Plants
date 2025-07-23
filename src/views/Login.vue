@@ -1,5 +1,5 @@
 <script setup>
-import { reactive} from 'vue'
+import { reactive,watch} from 'vue'
 import { useAllDataStore } from '../stores/index.js'
 import { useRouter, useRoute } from 'vue-router'
 import { login,register } from '../services/authService.js'
@@ -7,29 +7,24 @@ const loginForm = reactive({
     username: "",
     password: "",
 })
+const level=ref('');
 const store = useAllDataStore()
 const router = useRouter()
+
 const handleLogin = async () => {
     try{
         await login({"username":loginForm.username,"password":loginForm.password})
         store.addMenu(router);
-        console.log("菜单也渲染好了！登录成功！");
-        // router.push('/home')
-        router.push('home')
+        // console.log("菜单也渲染好了！登录成功！");
+        router.push('/home')
     }catch(error){
         console.log("登录失败！",error);
-        alert("登录失败，请检查账户和密码！");
+        ElMessage.error("登录失败，请检查账户和密码");
     }
 }
-const handleRegister = async (role) => {
-    try{
-        await register({"username":loginForm.username,"password":loginForm.password,"role":role});
-        alert("注册成功！");
-    }catch{
-        alert("注册失败！");
-    }
-}
+
 </script>
+
 
 <template>
     <div class="body-login">
@@ -40,51 +35,98 @@ const handleRegister = async (role) => {
             </el-form-item>
             <el-form-item>
                 <el-input type="password" placeholder="请输入密码" v-model="loginForm.password">
+                    <template #default>
+                        <span>{{ level.value }}</span>
+                    </template>
                 </el-input>
             </el-form-item>
             <el-form-item class="button">
-                <el-button type="primary" @click="handleLogin">登录</el-button>
-                <!-- 因为这个是超级管理员注册的管理员的账户 -->
-                <el-button type="primary" @click="handleRegister(0)">注册</el-button>
+                <el-button class="gradient-btn login-btn" @click="handleLogin">登录</el-button>
+                <el-button class="gradient-btn register-btn" @click="$router.push('/register')">注册</el-button>
             </el-form-item>
         </el-form>
     </div>
 </template>
 
+
 <style scoped lang="less">
 .body-login {
     width: 100%;
-    height: 100vh; /* 使用视口高度确保全屏 */
-    margin: 0; /* 移除默认边距 */
-    padding: 0; /* 移除默认内边距 */
+    height: 100vh;
+    margin: 0;
+    padding: 0;
     background-image: url("../assets/images/background.png");
-    background-size: cover; /* 关键属性：覆盖整个容器 */
-    background-position: center center; /* 居中显示 */
-    background-repeat: no-repeat; /* 禁止重复 */
-    background-attachment: fixed; /* 可选：固定背景 */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     overflow: hidden;
 }
 
 .login-container {
     width: 350px;
-    background-color: #fff;
-    border: 1px solid #eaeaea;
+    background-color: rgba(255, 255, 255, 0.8); /* 增加背景透明度，与背景融合 */
+    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 15px;
     padding: 35px 35px 15px 35px;
-    box-shadow: 0 0 25px #cacaca;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
     margin: 250px auto;
     h1 {
         text-align: center;
         margin-bottom: 20px;
-        color: #505450;
+        color: #333;
     }
     .button {
         text-align: center;
-        /* 父容器文本居中 */
-        .el-button {
-            width: 200px;
-            /* 固定宽度 + 自动外边距 */
-            margin: 0 auto;
+        display: flex;
+        // align-items: center;
+        gap: 100px;
+        justify-content: space-between;
+        
+        .gradient-btn {
+            position: relative;
+            width: 150px;
+            height: 45px;
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-weight: 600;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            }
+            
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(
+                    120deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.4),
+                    transparent
+                );
+                transition: all 0.6s ease;
+            }
+            
+            &:hover::before {
+                left: 100%;
+            }
+        }
+        
+        .login-btn {
+            background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%); /* 绿色系渐变 */
+        }
+        
+        .register-btn {
+            background: linear-gradient(135deg, #8BC34A 0%, #7CB342 100%); /* 浅绿色系渐变 */
         }
     }
 }
