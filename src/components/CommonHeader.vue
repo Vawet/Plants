@@ -41,9 +41,9 @@ import { useRouter } from 'vue-router'
 // import { ElMessage,ElUpload } from 'element-plus'
 import { handleAvatarChange } from '@/services/editService.js'
 const store = useAllDataStore()
+import defaultAvatar from '@/assets/images/user-default.png'
 const getImageUrl = computed(() => {
-    return store.state.avatar; 
-    //如果store.state.avatar存在则返回store.state.avatar，否则返回空字符串
+    return store.state.avatar||defaultAvatar; 
 })
 // 监听状态变化（调试用）
 watch(
