@@ -8,13 +8,13 @@ export function generateMenuByRole(role) {
       icon: 'house',
       url: 'Home'
     },
-   {
-          path: '/page2',
-          name: 'page2',
-          label: '个人信息编辑',
-          icon: 'setting',
-          url: 'Page2'
-        },
+    {
+      path: '/page2',
+      name: 'page2',
+      label: '个人信息编辑',
+      icon: 'setting',
+      url: 'Page2'
+    },
   ];
 
   // 管理员和员工额外的菜单

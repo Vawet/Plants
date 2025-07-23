@@ -30,17 +30,6 @@ const app = createApp(App)
 app.use(pinia)
 const store = useAllDataStore(); // 调用store
 store.addMenu(router, "refresh")
-// 添加以下代码手动注册静态路由
-router.addRoute({
-    path: '/home',
-    name: 'home',
-    component: () => import('@/views/Home.vue'),
-})
-router.addRoute({
-    path: '/page2',
-    name: 'page2',
-    component: () => import('@/views/Page2.vue'),
-})
 app.use(router)
 app.use(createHead())
 // 全局注册组件

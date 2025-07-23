@@ -71,7 +71,6 @@ const activeMenu=computed(()=>route.path)
 //router.push()
 const handleMenu=(item)=>{
     router.push(item.path)
-    store.selectMenu(item)
 }
 const list=computed(()=>{console.log('菜单数据:', store.state.menuList);
 return store.state.menuList;});

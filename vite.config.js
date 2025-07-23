@@ -4,7 +4,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import path from 'path'
-
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
 export default defineConfig({
   plugins: [
     vue(),
@@ -24,6 +24,14 @@ export default defineConfig({
       ],
       // dts: 'src/components.d.ts',
     }),
+    ViteImageOptimizer({
+      jpg: {
+        quality: 20,
+      },
+      png: {
+        quality: 20,
+      }
+      })
   ],
   resolve: {
     alias: {

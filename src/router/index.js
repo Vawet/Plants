@@ -30,12 +30,6 @@ const routes = [
         name: "404",
         component: () => import("@/views/404.vue"),
     },
-    // // 添加通配符路由 - 这是关键！
-    // {
-    //     path: '/:pathMatch(.*)*',
-    //     name: 'NotFound',
-    //     redirect: '/404'
-    // }
 ]
 const router = createRouter({
     history: createWebHistory(),
