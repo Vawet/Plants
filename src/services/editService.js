@@ -1,7 +1,7 @@
 // src/services/editService.js
 import axios from 'axios';
-// import { ElMessage } from 'element-plus';
-const API_URL = 'http://localhost:3000/api/edit';
+import { ElMessage } from 'element-plus';
+const API_URL = 'http://106.54.254.209:3000/api/edit';
 import {useAllDataStore} from '@/stores/index'
 const store=useAllDataStore();
 export const handleAvatarChange=async (file)=> {
@@ -9,7 +9,6 @@ export const handleAvatarChange=async (file)=> {
         // 创建 FormData 对象，用于上传文件
         const formData = new FormData();
         formData.append('file', file.raw); 
-
         // 调用后端接口上传头像，这里的接口地址根据实际后端定义填写
         const res = await axios.post(`${API_URL}/updateAvatar`, formData, {
             headers: {
@@ -22,11 +21,9 @@ export const handleAvatarChange=async (file)=> {
             ElMessage.success('头像修改成功');
             // 更新 store 中的头像地址
             store.updateImg(res.data.data.avatar);
-        } else {
-            ElMessage.error('头像修改失败，请稍后重试');
         }
     } catch (error) {
-        console.error('上传头像出错!：', error);
+        // console.error('上传头像出错!：', error);
         ElMessage.error('网络异常，头像修改失败!');
     }
 }

@@ -7,7 +7,6 @@ const loginForm = reactive({
     username: "",
     password: "",
 })
-const level=ref('');
 const store = useAllDataStore()
 const router = useRouter()
 
@@ -22,6 +21,10 @@ const handleLogin = async () => {
         ElMessage.error("登录失败，请检查账户和密码");
     }
 }
+const ToRegister = () => {
+    router.push('/register')
+}
+
 
 </script>
 
@@ -35,14 +38,11 @@ const handleLogin = async () => {
             </el-form-item>
             <el-form-item>
                 <el-input type="password" placeholder="请输入密码" v-model="loginForm.password">
-                    <template #default>
-                        <span>{{ level.value }}</span>
-                    </template>
                 </el-input>
             </el-form-item>
             <el-form-item class="button">
                 <el-button class="gradient-btn login-btn" @click="handleLogin">登录</el-button>
-                <el-button class="gradient-btn register-btn" @click="$router.push('/register')">注册</el-button>
+                <el-button class="gradient-btn register-btn" @click="ToRegister">注册</el-button>
             </el-form-item>
         </el-form>
     </div>

@@ -2,7 +2,7 @@
     <div class="header" :class="store.state.theme">
         <div class="l-content">
             <el-breadcrumb separator="/" class="bread">
-                <el-breadcrumb-item :to="{ path: '/login' }" >返回登录页面</el-breadcrumb-item>
+                <el-breadcrumb-item @click="handleLoginOut">返回登录页面</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <!-- 右侧放的是用户的头像  -->

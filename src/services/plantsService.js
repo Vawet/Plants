@@ -1,6 +1,6 @@
 import axios from 'axios';
 // import { ElMessage } from 'element-plus';
-const API_URL = 'http://localhost:3000/api/plants';
+const API_URL = 'http://106.54.254.209:3000/api/plants';
 export const handlePlantUpload = async (form) => {
   try {
     // 创建一个FormData对象,然后把form表单数据添加到要上传的formData中

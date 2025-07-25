@@ -45,7 +45,7 @@ export default defineConfig({
     proxy: {
       // API 代理配置
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'http://106.54.254.209:3000',
         changeOrigin: true,
         // rewrite: (path) => path.replace(/^\/api/, ''), // 重写路径
         // secure: false, // 不验证 SSL

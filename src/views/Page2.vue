@@ -24,6 +24,7 @@
                     action="#"
                     :show-file-list="false"
                     :on-change="handleChange"
+                    drag
                   >
                     <div v-if="imageUrl" class="image-container">
                       <img :src="imageUrl" class="avatar" />
@@ -43,38 +44,7 @@
             
             <!-- 右侧列：中英文介绍和个人信息 -->
             <div class="form-section">
-              <!-- <h3 class="form-section-title">
-                <el-icon><Notebook /></el-icon>
-                植物介绍
-              </h3>
-               -->
-              <!-- <div class="lang-container">
-                <div class="lang-box">
-                  <div class="lang-box-title">中文介绍</div>
-                  <el-form-item prop="descriptionCn">
-                    <el-input
-                      v-model="form.descriptionCn"
-                      type="textarea"
-                      :rows="5"
-                      placeholder="请输入植物中文介绍"
-                      @input="translateToEnglish"
-                    />
-                  </el-form-item>
-                </div>
-                
-                <div class="lang-box">
-                  <div class="lang-box-title">英文介绍</div>
-                  <el-form-item prop="descriptionEn">
-                    <el-input
-                      v-model="form.descriptionEn"
-                      type="textarea"
-                      :rows="5"
-                      placeholder="植物英文介绍（自动生成，可修改）"
-                    />
-                  </el-form-item>
-                </div>
-              </div> -->
-              
+      
               <h3 class="form-section-title" style="margin-top: 30px;">
                 <el-icon><User /></el-icon>
                 添加者信息
@@ -138,8 +108,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-// import { ElMessage, ElLoading } from 'element-plus'
-import {handlePlantUpload} from '@/services/plantsService.js'
+import { ElMessage, ElLoading } from 'element-plus'
 import { handlePersonUpload,handleAvatarChange } from '@/services/editService.js'
 import {
   Plus,
@@ -154,7 +123,8 @@ import {
   Close,
   Delete
 } from '@element-plus/icons-vue'
-
+import { useAllDataStore } from '../stores/index.js'
+const store = useAllDataStore()
 // 表单数据
 const form = ref({
   author: '',
@@ -182,11 +152,6 @@ const plantCategories = ref([
   { value: '9', label: '9: 苔藓植物' },
   { value: '10', label: '10: 珍稀植物' }
 ])
-
-// // 计算属性：当前系别已上传图片数量
-// const currentCategoryImageCount = computed(() => {
-//   return form.value.images.length
-// })
 
 // 计算属性：个人简介中文字符数
 const bioCharCount = computed(() => {
@@ -217,29 +182,10 @@ const resetForm = () => {
 
 // 提交表单
 const submitForm =async () => {
-//   console.log(form.value.images);
-//   // 表单验证
-//   if (!form.value.images.length) {
-//     ElMessage.warning('请至少上传一张图片')
-//     return
-//   }
-
-  
-//   if (!form.value.category) {
-//     ElMessage.warning('请选择植物系别')
-//     return
-//   }
-  
-//   if (!form.value.descriptionCn) {
-//     ElMessage.warning('请填写植物中文介绍')
-//     return
-//   }
-  
   if (!form.value.author) {
     ElMessage.warning('请填写您的姓名')
     return
   }
-  
   // 显示加载状态
   const loading = ElLoading.service({
     lock: true,
@@ -258,6 +204,7 @@ const submitForm =async () => {
     resetForm();
   }
 }
+
 // 头像选择时触发 - 用于立即预览
 const handleChange = async (uploadFile) => {
   // 创建本地预览（不等待上传完成）

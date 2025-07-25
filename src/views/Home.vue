@@ -27,6 +27,7 @@
                   :on-remove="handleRemoveImage"
                   :file-list="form.images"
                   multiple
+                  drag
                 >
                   <el-icon><Plus /></el-icon>
                 </el-upload>
@@ -211,10 +212,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-// import { ElMessage, ElLoading } from 'element-plus'
 import {handlePlantUpload} from '@/services/plantsService.js'
-import { handlePersonUpload } from '@/services/editService.js'
-
 import {
   Plus,
   Picture,
@@ -234,9 +232,6 @@ const form = ref({
   descriptionEn: '',
   name: '',
   ename:'',
-  // author: '',
-  // authorBio: '',
-  // authorBioEn: ''
 })
 
 // 表单验证规则
@@ -369,11 +364,6 @@ const submitForm =async () => {
     ElMessage.warning('请填写植物中文介绍')
     return
   }
-  
-  // if (!form.value.author) {
-  //   ElMessage.warning('请填写您的姓名')
-  //   return
-  // }
   
   // 显示加载状态
   const loading = ElLoading.service({

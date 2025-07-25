@@ -13,7 +13,7 @@ router.post('/register', async (req, res) => {
     await User.createUser(username, hashedPassword,role); 
     res.status(201).json({ message: '注册成功' });
   } catch (error) {
-    res.status(500).json({ error: '注册失败' });
+    res.status(500).json({ error:error });
   }
 });
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 // import { ElMessage } from 'element-plus';
-const API_URL = 'http://localhost:3000/api/auth';
+const API_URL = 'http://106.54.254.209:3000/api/auth';
 import {useAllDataStore} from '@/stores/index'
 const store=useAllDataStore();
 import { generateMenuByRole } from '../models/Menu';

@@ -12,13 +12,14 @@ const __dirname=path.dirname(filename);
 const app=express();
 // app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(bodyParser.json());
-const allowOrigins = ['http://localhost:8080','http://localhost:8081'];
+const allowOrigins = ['http://localhost:8080','http://localhost:8081','http://106.54.254.209','http://106.54.254.209:8080','http://106.54.254.209:8081'];
 app.use(cors({
     origin: (origin, callback) => {
         // !origin 表示允许Postman等工具的跨域请求
         if (!origin || allowOrigins.includes(origin)) {
           callback(null, true);
         } else {
+          console.log('被拒绝的源：',origin)
           callback(new Error('Not allowed by CORS!!!'));
         }
     },
@@ -28,14 +29,14 @@ app.use(cors({
     // 允许的HTTP方法
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
   }));
-app.options('*', cors());
-// 在所有路由前添加
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', allowOrigins[0], allowOrigins[1]);
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  next();
-});
+// app.options('*', cors());
+// // 在所有路由前添加
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', allowOrigins[0], allowOrigins[1], allowOrigins[2]);
+//   res.header('Access-Control-Allow-Credentials', 'true');
+//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+//   next();
+// });
 // 解析请求体的中间件，要放在路由挂载之前
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -50,6 +51,6 @@ app.use('/avatars',express.static(path.join(__dirname, 'public/avatars')));
 app.use('/plants',express.static(path.join(__dirname, 'public/plants')));
 // console.log('实际路径:',path.join(__dirname, 'public/avatars'));
 const PORT=process.env.PORT ||3000;
-app.listen(PORT,()=>{
+app.listen(PORT,'0.0.0.0',()=>{
     console.log(`服务器运行在端口${PORT}`);
 })

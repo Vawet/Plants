@@ -4,8 +4,6 @@ import { ref, watch } from "vue"
 function initState() {
     // 返回一个对象，包含以下属性
     return {
-        // 是否折叠
-        isCollapse: false,
         // 菜单列表
         menuList: [
         {
@@ -27,28 +25,10 @@ function initState() {
         routerList: [],
         // token
         token: "",
-        // 主题
-        theme: 'light',
         // 默认主题是白天模式
         avatar: "",
     }
 }
-const baseMenu = [
-    {
-        path: '/home',
-        name: 'home',
-        label: '首页',
-        icon: 'house',
-        url: 'Home'
-    },
-    {
-        path: '/page2',
-        name: 'page2',
-        label: '个人信息编辑',
-        icon: 'setting',
-        url: 'Page2'
-    },
-];
 export const useAllDataStore = defineStore("allData", () => {
     // ref state 
     // computed getters
@@ -67,6 +47,7 @@ export const useAllDataStore = defineStore("allData", () => {
 
  function addMenu(router, type) {
     const module = import.meta.glob('../views/**/*.vue');
+    console.log(module)
     let routeArr = [];
 
     if (type !== 'refresh') {
@@ -99,13 +80,11 @@ export const useAllDataStore = defineStore("allData", () => {
         }
     });
 
-    // 【可选】结合 token 做登录态校验（示例逻辑，需根据实际调整）
     const token = localStorage.getItem('token');
     if (!token && type === 'refresh') {
         // 无 token 且是刷新，可跳转登录等
         router.push('/login');
     }
-    console.log("menulist",state.value.menuList);
 }
 
     function clean() {
@@ -116,16 +95,11 @@ export const useAllDataStore = defineStore("allData", () => {
         state.value = initState();
         localStorage.removeItem("store")
     }
-    // 可以用store来接收，不仅有state还有函数方法！！
-    function toggleTheme() {
-        state.value.theme = state.value.theme === 'light' ? 'dark' : 'light';
-    }
     return {
         state,
         updateImg,
         updateMenuList,
         addMenu,
         clean,
-        toggleTheme
     };
 })
